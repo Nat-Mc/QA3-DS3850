@@ -43,7 +43,7 @@ def get_all_data(table_name):
     return cursor.fetchall()
 
 # Create a table for multiple-choice questions
-create_table("multiple_choice_questions", {
+create_table("world_history_questions", {
     "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
     "question": "TEXT NOT NULL",
     "choice_a": "TEXT NOT NULL",
@@ -54,7 +54,7 @@ create_table("multiple_choice_questions", {
 })
 
 # Insert data into the multiple_choice_questions table
-insert_data("multiple_choice_questions", {
+insert_data("world_history_questions", {
     "question": "What is the capital of France?",
     "choice_a": "Berlin",
     "choice_b": "Madrid",
@@ -273,101 +273,6 @@ python_questions_data = [
         "choice_c": "str(10)",
         "choice_d": "convert('10')",
         "correct_answer": "B"
-    }
-]
-
-# Create the dbms_trivia table
-create_table("dbms_trivia", {
-    "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
-    "question": "TEXT NOT NULL",
-    "choice_a": "TEXT NOT NULL",
-    "choice_b": "TEXT NOT NULL",
-    "choice_c": "TEXT NOT NULL",
-    "choice_d": "TEXT NOT NULL",
-    "correct_answer": "TEXT NOT NULL"
-})
-
-# List of multiple-choice questions related to database management systems
-dbms_trivia_data = [
-    {
-        "question": "What is the full form of DBMS?",
-        "choice_a": "Data Backup Management System",
-        "choice_b": "Data Base Management System",
-        "choice_c": "Database Maintenance System",
-        "choice_d": "Data Management System",
-        "correct_answer": "B"
-    },
-    {
-        "question": "Which of the following is a DBMS model?",
-        "choice_a": "Hierarchical Model",
-        "choice_b": "Object-Oriented Model",
-        "choice_c": "Network Model",
-        "choice_d": "All of the above",
-        "correct_answer": "D"
-    },
-    {
-        "question": "What is a primary key in a DBMS?",
-        "choice_a": "A field that uniquely identifies each record in a table",
-        "choice_b": "A field that contains null values",
-        "choice_c": "A field that holds large text values",
-        "choice_d": "A field used for indexing",
-        "correct_answer": "A"
-    },
-    {
-        "question": "Which SQL statement is used to retrieve data from a table?",
-        "choice_a": "SELECT",
-        "choice_b": "INSERT",
-        "choice_c": "UPDATE",
-        "choice_d": "DELETE",
-        "correct_answer": "A"
-    },
-    {
-        "question": "In a relational DBMS, which is the relationship between tables?",
-        "choice_a": "One-to-One",
-        "choice_b": "One-to-Many",
-        "choice_c": "Many-to-Many",
-        "choice_d": "All of the above",
-        "correct_answer": "D"
-    },
-    {
-        "question": "Which SQL clause is used to filter records?",
-        "choice_a": "ORDER BY",
-        "choice_b": "HAVING",
-        "choice_c": "WHERE",
-        "choice_d": "SELECT",
-        "correct_answer": "C"
-    },
-    {
-        "question": "What is normalization in DBMS?",
-        "choice_a": "Process of converting data into a logical format",
-        "choice_b": "Process of organizing data to reduce redundancy",
-        "choice_c": "Process of compressing data",
-        "choice_d": "Process of indexing data",
-        "correct_answer": "B"
-    },
-    {
-        "question": "Which of the following is NOT a type of DBMS?",
-        "choice_a": "Hierarchical DBMS",
-        "choice_b": "Relational DBMS",
-        "choice_c": "Network DBMS",
-        "choice_d": "Object-oriented OS",
-        "correct_answer": "D"
-    },
-    {
-        "question": "What is the purpose of the 'JOIN' operation in SQL?",
-        "choice_a": "To combine multiple tables into one",
-        "choice_b": "To filter data",
-        "choice_c": "To sort data",
-        "choice_d": "To update data in a table",
-        "correct_answer": "A"
-    },
-    {
-        "question": "Which command is used to create a new table in SQL?",
-        "choice_a": "CREATE TABLE",
-        "choice_b": "MAKE TABLE",
-        "choice_c": "NEW TABLE",
-        "choice_d": "BUILD TABLE",
-        "correct_answer": "A"
     }
 ]
 
