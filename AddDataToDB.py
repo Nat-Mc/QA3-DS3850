@@ -595,3 +595,4 @@ for q in all_movie_trivia:
 
 # Close the connection when done
 conn.close()
+

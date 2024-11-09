@@ -1,71 +1,92 @@
+# main.py
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 import sqlite3
 
-# Connect to the SQLite database
-def connect_db():
-    conn = sqlite3.connect('questions.db')
-    return conn
+# Function to open the quiz window
+def open_quiz_window(category):
+    # Close the main window
+    main_window.destroy()
+    
+    # Create a new window for the quiz
+    quiz_window = tk.Tk()
+    quiz_window.title("Quiz Time!")
 
-# Function to fetch questions from a specific table
-def fetch_questions(table_name):
-    conn = connect_db()
+    # Establish connection to the database
+    conn = sqlite3.connect("questions.db")
     cursor = conn.cursor()
-    cursor.execute(f"SELECT question, answer FROM {table_name}")
+    
+    # Fetch questions from the selected category
+    cursor.execute(f"SELECT question, option_a, option_b, option_c, option_d, correct_answer FROM {category}")
     questions = cursor.fetchall()
     conn.close()
-    return questions
-
-# Function to display a question and allow the user to answer
-def show_question(table_name):
-    questions = fetch_questions(table_name)
     
-    # Function to check the user's answer
-    def check_answer():
-        user_answer = answer_entry.get()
-        correct_answer = questions[question_index][1]
-        if user_answer.lower() == correct_answer.lower():
-            messagebox.showinfo("Correct", "Your answer is correct!")
+    # Initialize current question index
+    current_question = [0]  # Use a mutable object to keep track of the index across function calls
+    
+    # Variable to store the user's selected answer
+    user_answer = tk.StringVar(value="")  # Set to empty string to avoid preselection
+
+    # Function to display the next question
+    def display_question():
+        if current_question[0] < len(questions):
+            question_text, opt_a, opt_b, opt_c, opt_d, correct_answer = questions[current_question[0]]
+            question_label.config(text=question_text)
+            option_a_rb.config(text=opt_a, value='A')
+            option_b_rb.config(text=opt_b, value='B')
+            option_c_rb.config(text=opt_c, value='C')
+            option_d_rb.config(text=opt_d, value='D')
+            # Clear previous selection
+            user_answer.set("")  # Reset the selection for each new question
         else:
-            messagebox.showerror("Incorrect", f"The correct answer is: {correct_answer}")
+            messagebox.showinfo("Quiz Complete", "You've completed the quiz!")
+            quiz_window.destroy()
 
-    # Setup the window
-    window = tk.Tk()
-    window.title(f"Trivia - {table_name}")
-    
-    # Initialize the question index
-    question_index = 0
-    
-    # Display the current question
-    question_label = tk.Label(window, text=questions[question_index][0], font=('Arial', 14))
-    question_label.pack(pady=20)
-    
-    # Entry widget for the user's answer
-    answer_entry = tk.Entry(window, font=('Arial', 12))
-    answer_entry.pack(pady=10)
-    
-    # Button to check the answer
-    check_button = tk.Button(window, text="Check Answer", font=('Arial', 12), command=check_answer)
-    check_button.pack(pady=10)
-
-    # Button to move to the next question
-    def next_question():
-        nonlocal question_index
-        question_index += 1
-        if question_index < len(questions):
-            question_label.config(text=questions[question_index][0])
-            answer_entry.delete(0, tk.END)
+    # Function to check the answer and move to the next question
+    def submit_answer():
+        if user_answer.get() == questions[current_question[0]][5]:  # Check against correct_answer
+            messagebox.showinfo("Result", "Correct!")
         else:
-            messagebox.showinfo("End of Questions", "You've reached the end of the questions!")
-            window.quit()
-
-    next_button = tk.Button(window, text="Next Question", font=('Arial', 12), command=next_question)
-    next_button.pack(pady=10)
+            messagebox.showinfo("Result", "Incorrect. Try Again.")
+        
+        # Move to the next question
+        current_question[0] += 1
+        display_question()
     
-    # Start the Tkinter loop
-    window.mainloop()
+    # Widgets for displaying questions and options
+    question_label = tk.Label(quiz_window, text="")
+    question_label.pack()
+    
+    # Create radio buttons for options
+    option_a_rb = tk.Radiobutton(quiz_window, variable=user_answer)
+    option_b_rb = tk.Radiobutton(quiz_window, variable=user_answer)
+    option_c_rb = tk.Radiobutton(quiz_window, variable=user_answer)
+    option_d_rb = tk.Radiobutton(quiz_window, variable=user_answer)
+    
+    option_a_rb.pack()
+    option_b_rb.pack()
+    option_c_rb.pack()
+    option_d_rb.pack()
 
-# Example to start the trivia game with a specific table
-if __name__ == "__main__":
-    # Change the table name to whatever you want to start with
-    show_question("world_history")
+    # Submit button to check answer and move to the next question
+    submit_button = tk.Button(quiz_window, text="Submit Answer", command=submit_answer)
+    submit_button.pack()
+
+    # Display the first question
+    display_question()
+
+# Create the main window for selecting a category
+main_window = tk.Tk()
+main_window.title("Select Quiz Category")
+
+# Label and dropdown for selecting category
+tk.Label(main_window, text="Choose a category:").pack()
+category = tk.StringVar()
+category_menu = ttk.Combobox(main_window, textvariable=category, values=["world_history", "rock_band_trivia", "movie_trivia", "DS3850", "DS3860"])
+category_menu.pack()
+
+# Start Quiz Button
+start_button = tk.Button(main_window, text="Start Quiz Now", command=lambda: open_quiz_window(category.get()))
+start_button.pack()
+
+main_window.mainloop()
