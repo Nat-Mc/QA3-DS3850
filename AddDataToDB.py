@@ -43,7 +43,7 @@ def get_all_data(table_name):
     return cursor.fetchall()
 
 # Create a table for multiple-choice questions
-create_table("world_history_questions", {
+create_table("world_history", {
     "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
     "question": "TEXT NOT NULL",
     "choice_a": "TEXT NOT NULL",
@@ -53,8 +53,8 @@ create_table("world_history_questions", {
     "correct_answer": "TEXT NOT NULL"  # stores the correct choice (e.g., 'A', 'B', 'C', or 'D')
 })
 
-# Insert data into the multiple_choice_questions table
-insert_data("world_history_questions", {
+
+insert_data("world_history", {
     "question": "What is the capital of France?",
     "choice_a": "Berlin",
     "choice_b": "Madrid",
@@ -62,7 +62,7 @@ insert_data("world_history_questions", {
     "choice_d": "Rome",
     "correct_answer": "C"
 })
-insert_data("multiple_choice_questions", {
+insert_data("world_history", {
     "question": "Which language is primarily used for iOS development?",
     "choice_a": "Java",
     "choice_b": "Kotlin",
@@ -72,7 +72,7 @@ insert_data("multiple_choice_questions", {
 })
 
 # Retrieve and print all questions and answers
-all_questions = get_all_data("multiple_choice_questions")
+all_questions = get_all_data("world_history")
 for q in all_questions:
     print(f"Q: {q[1]}")
     print(f"A) {q[2]}")
@@ -168,10 +168,10 @@ questions_data = [
 
 # Insert each question into the multiple_choice_questions table
 for question in questions_data:
-    insert_data("multiple_choice_questions", question)
+    insert_data("world_history", question)
 
 # Retrieve and print all questions and answers to verify
-all_questions = get_all_data("multiple_choice_questions")
+all_questions = get_all_data("world_history")
 for q in all_questions:
     print(f"Q: {q[1]}")
     print(f"A) {q[2]}")
@@ -182,7 +182,7 @@ for q in all_questions:
     print()
 
     # Create the intro_to_python_questions table
-create_table("intro_to_python_questions", {
+create_table("DS3850", {
     "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
     "question": "TEXT NOT NULL",
     "choice_a": "TEXT NOT NULL",
@@ -278,7 +278,7 @@ python_questions_data = [
 
 
 # Create the dbms_trivia table
-create_table("dbms_trivia", {
+create_table("DS3860", {
     "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
     "question": "TEXT NOT NULL",
     "choice_a": "TEXT NOT NULL",
@@ -474,6 +474,117 @@ for question in rock_band_trivia_data:
 # Retrieve and print all rock band trivia questions and answers to verify
 all_rock_band_trivia = get_all_data("rock_band_trivia")
 for q in all_rock_band_trivia:
+    print(f"Q: {q[1]}")
+    print(f"A) {q[2]}")
+    print(f"B) {q[3]}")
+    print(f"C) {q[4]}")
+    print(f"D) {q[5]}")
+    print(f"Correct Answer: {q[6]}")
+    print()
+
+
+# Create the movie_trivia table
+create_table("movie_trivia", {
+    "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
+    "question": "TEXT NOT NULL",
+    "choice_a": "TEXT NOT NULL",
+    "choice_b": "TEXT NOT NULL",
+    "choice_c": "TEXT NOT NULL",
+    "choice_d": "TEXT NOT NULL",
+    "correct_answer": "TEXT NOT NULL"
+})
+
+# List of multiple-choice questions related to movies
+movie_trivia_data = [
+    {
+        "question": "Who directed the movie 'Jaws'?",
+        "choice_a": "Steven Spielberg",
+        "choice_b": "George Lucas",
+        "choice_c": "Martin Scorsese",
+        "choice_d": "Francis Ford Coppola",
+        "correct_answer": "A"
+    },
+    {
+        "question": "Which movie won the Academy Award for Best Picture in 1994?",
+        "choice_a": "The Shawshank Redemption",
+        "choice_b": "Forrest Gump",
+        "choice_c": "Pulp Fiction",
+        "choice_d": "The Lion King",
+        "correct_answer": "B"
+    },
+    {
+        "question": "Which actor played the character of 'Jack Dawson' in Titanic?",
+        "choice_a": "Johnny Depp",
+        "choice_b": "Brad Pitt",
+        "choice_c": "Leonardo DiCaprio",
+        "choice_d": "Tom Cruise",
+        "correct_answer": "C"
+    },
+    {
+        "question": "What is the name of the fictional African country in the movie 'Black Panther'?",
+        "choice_a": "Wakanda",
+        "choice_b": "Zamunda",
+        "choice_c": "Genovia",
+        "choice_d": "Elbonia",
+        "correct_answer": "A"
+    },
+    {
+        "question": "Which movie features the quote 'May the Force be with you'?",
+        "choice_a": "Star Trek",
+        "choice_b": "Star Wars",
+        "choice_c": "The Matrix",
+        "choice_d": "Avatar",
+        "correct_answer": "B"
+    },
+    {
+        "question": "Which actor starred as the titular character in the movie 'The Godfather'?",
+        "choice_a": "Al Pacino",
+        "choice_b": "Marlon Brando",
+        "choice_c": "Robert De Niro",
+        "choice_d": "Jack Nicholson",
+        "correct_answer": "B"
+    },
+    {
+        "question": "What year was the movie 'The Matrix' released?",
+        "choice_a": "1997",
+        "choice_b": "1998",
+        "choice_c": "1999",
+        "choice_d": "2000",
+        "correct_answer": "C"
+    },
+    {
+        "question": "Which movie is known for the line 'Here's looking at you, kid'?",
+        "choice_a": "Gone with the Wind",
+        "choice_b": "Casablanca",
+        "choice_c": "Citizen Kane",
+        "choice_d": "The Godfather",
+        "correct_answer": "B"
+    },
+    {
+        "question": "Who played the character of 'Forrest Gump'?",
+        "choice_a": "Tom Hanks",
+        "choice_b": "Brad Pitt",
+        "choice_c": "Matt Damon",
+        "choice_d": "Johnny Depp",
+        "correct_answer": "A"
+    },
+    {
+        "question": "What movie is the quote 'I'll be back' from?",
+        "choice_a": "RoboCop",
+        "choice_b": "The Terminator",
+        "choice_c": "Die Hard",
+        "choice_d": "Predator",
+        "correct_answer": "B"
+    }
+]
+
+# Insert the movie trivia questions into the movie_trivia table
+for question in movie_trivia_data:
+    insert_data("movie_trivia", question)
+
+# Retrieve and print all movie trivia questions and answers to verify
+all_movie_trivia = get_all_data("movie_trivia")
+for q in all_movie_trivia:
     print(f"Q: {q[1]}")
     print(f"A) {q[2]}")
     print(f"B) {q[3]}")
