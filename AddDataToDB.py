@@ -42,29 +42,44 @@ def get_all_data(table_name):
     cursor.execute(f"SELECT * FROM {table_name}")
     return cursor.fetchall()
 
-# Example usage
-# Create a table for questions and answers
-create_table("questions_answers", {
+# Create a table for multiple-choice questions
+create_table("multiple_choice_questions", {
     "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
     "question": "TEXT NOT NULL",
-    "answer": "TEXT NOT NULL"
+    "choice_a": "TEXT NOT NULL",
+    "choice_b": "TEXT NOT NULL",
+    "choice_c": "TEXT NOT NULL",
+    "choice_d": "TEXT NOT NULL",
+    "correct_answer": "TEXT NOT NULL"  # stores the correct choice (e.g., 'A', 'B', 'C', or 'D')
 })
 
-# Insert data into questions_answers table
-insert_data("questions_answers", {
-    "question": "What is Python?",
-    "answer": "Python is a programming language."
+# Insert data into the multiple_choice_questions table
+insert_data("multiple_choice_questions", {
+    "question": "What is the capital of France?",
+    "choice_a": "Berlin",
+    "choice_b": "Madrid",
+    "choice_c": "Paris",
+    "choice_d": "Rome",
+    "correct_answer": "C"
 })
-insert_data("questions_answers", {
-    "question": "What is SQLite?",
-    "answer": "SQLite is a lightweight database library."
+insert_data("multiple_choice_questions", {
+    "question": "Which language is primarily used for iOS development?",
+    "choice_a": "Java",
+    "choice_b": "Kotlin",
+    "choice_c": "Swift",
+    "choice_d": "C#",
+    "correct_answer": "C"
 })
 
 # Retrieve and print all questions and answers
-all_qa = get_all_data("questions_answers")
-for qa in all_qa:
-    print(f"Q: {qa[1]}")
-    print(f"A: {qa[2]}")
+all_questions = get_all_data("multiple_choice_questions")
+for q in all_questions:
+    print(f"Q: {q[1]}")
+    print(f"A) {q[2]}")
+    print(f"B) {q[3]}")
+    print(f"C) {q[4]}")
+    print(f"D) {q[5]}")
+    print(f"Correct Answer: {q[6]}")
     print()
 
 # Close the connection when done
